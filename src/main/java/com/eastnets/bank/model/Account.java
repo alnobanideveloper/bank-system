@@ -11,7 +11,6 @@ public class Account {
     protected int accountNo;
     protected double balance;
     protected LocalDate openedDate;
-    protected List<Transaction> listOfTransactions;
 
     // No-argument constructor (needed by frameworks)
     public Account() {}
@@ -22,7 +21,6 @@ public class Account {
         this.accountNo = accountNo;
         this.balance = balance;
         this.openedDate  = LocalDate.now();
-        this.listOfTransactions = new ArrayList<>();
     }
 
     // Getters and Setters
@@ -46,7 +44,7 @@ public class Account {
         return accountNo;
     }
 
-    //
+
     public void setAccountNo(int accountNo) {
         this.accountNo = accountNo;
     }
@@ -61,10 +59,6 @@ public class Account {
 
     public LocalDate getOpenedDate() {
         return openedDate;
-    }
-
-    public List<Transaction> getListOfTransactions() {
-        return listOfTransactions;
     }
 
 }

@@ -7,8 +7,7 @@ import java.util.List;
 public class Customer {
  private String phoneNumber;
  private String nationalId;
- private String firstName;
- private String lastName;
+ private String name;
  private String email;
  private String address;
  private Branch branch;
@@ -21,8 +20,7 @@ public class Customer {
     private Customer(Builder builder) {
         this.phoneNumber = builder.phoneNumber;
         this.nationalId = builder.nationalId;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
+        this.name = builder.name;
         this.email = builder.email;
         this.address = builder.address;
         this.branch = builder.branch;
@@ -46,24 +44,13 @@ public class Customer {
         this.nationalId = nationalId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public String getName(){
-        return this.firstName + " " + this.lastName;
+        return this.name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name){
+        this.name = name;
     }
 
     public String getEmail() {
@@ -111,17 +98,23 @@ public class Customer {
     }
 
 
+    @Override
+    public String toString() {
+        return "name is :" + name
+                + "\nphone number is : " + phoneNumber
+                + "\nnationalID is : " + nationalId
+                + "\naddress is : " + address
+                + "\nemail is : " + email;
+    }
 
     public static class Builder{
         private String phoneNumber;
         private String nationalId;
-        private String firstName;
-        private String lastName;
+        private String name;
         private String email;
         private String address;
         private Branch branch;
         private String password;
-        private List<Account> accounts;
 
         public Builder setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
@@ -154,16 +147,10 @@ public class Customer {
             return this;
         }
 
-        public Builder setFirstName(String firstName) {
-            this.firstName = firstName;
+        public Builder setName(String name){
+            this.name = name;
             return this;
         }
-
-        public Builder setLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
 
         public Customer build(){
             return new Customer(this);

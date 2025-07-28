@@ -12,8 +12,7 @@ public class Branch {
 
     public Branch() {}
 
-    public Branch(List<Customer> customers, String address, String name, int number) {
-        this.customers = customers;
+    public Branch(String address, String name, int number) {
         this.address = address;
         this.name = name;
         this.number = number;
