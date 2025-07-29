@@ -6,8 +6,8 @@ public class savingAccount extends Account{
     private final int maxTransactions = 10;
 
 
-    public savingAccount( int accountNo, double balance){
-        super("savings" , accountNo, balance);
+    public savingAccount( int accountNo, double balance ,  String nationalID ) {
+        super("savings" , accountNo, balance ,  nationalID);
     }
 
     public int getMaxTransactions() {

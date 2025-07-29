@@ -6,16 +6,17 @@ public class Branch {
     private String name;
     private String address;
     private List<Customer> customers;
-    private String swiftCode;
+    private String bankSwift;
 
 
 
     public Branch() {}
 
-    public Branch(String address, String name, int number) {
+    public Branch(String address, String name, int number ,String BankSwift ) {
         this.address = address;
         this.name = name;
         this.number = number;
+        this.bankSwift = BankSwift;
     }
 
     public List<Customer> getCustomers() {
@@ -50,13 +51,15 @@ public class Branch {
         this.number = number;
     }
 
-    public String getSwiftCode() {
-        return swiftCode;
+
+    public String getBankSwift() {
+        return bankSwift;
     }
 
-    public void setSwiftCode(String swiftCode) {
-        this.swiftCode = swiftCode;
+    public void setBankSwift(String bankSwift) {
+        this.bankSwift = bankSwift;
     }
+
 
     @Override
     public String toString() {

@@ -16,10 +16,11 @@ public class Account {
     public Account() {}
 
     // All-arguments constructor
-    public Account( String accountType, int accountNo, double balance) {
+    public Account( String accountType, int accountNo, double balance , String nationalID ) {
         this.accountType = accountType;
         this.accountNo = accountNo;
         this.balance = balance;
+        this.nationalID = nationalID;
         this.openedDate  = LocalDate.now();
     }
 

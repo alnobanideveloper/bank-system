@@ -7,8 +7,8 @@ public class currentAccount extends Account {
         return minAmount;
     }
 
-    public currentAccount(int accountNo, double balance){
-        super("savings" , accountNo, balance);
+    public currentAccount(int accountNo, double balance , String nationalID ) {
+        super("savings" , accountNo, balance, nationalID);
     }
 
 }
