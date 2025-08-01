@@ -1,53 +1,66 @@
 package main.java.com.eastnets.bank.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Transaction {
     private int id;
-    private int sourceNumber;
-    private int destinationNumber;
+    private Integer sourceNumber;
+    private Integer destinationNumber;
     private double amount;
+    private String type;
+    private LocalDateTime created_at;
 
-    public Transaction() {
 
+    public Transaction(){}
+
+    public Transaction(double amount, Integer destinationNumber, Integer sourceNumber,  String type) {
+        this.amount = amount;
+        this.destinationNumber = destinationNumber;
+        this.sourceNumber = sourceNumber;
+        this.type = type;
     }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 
     public double getAmount() {
         return amount;
     }
 
-    public Transaction(double amount, int destinationNumber, int sourceNumber, int id) {
-        this.amount = amount;
-        this.destinationNumber = destinationNumber;
-        this.sourceNumber = sourceNumber;
-        this.id = id;
-    }
 
     public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public LocalDate getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDate created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public int getSourceNumber() {
+    public Integer getSourceNumber() {
         return sourceNumber;
     }
 
-    public void setSourceNumber(int sourceNumber) {
+    public void setSourceNumber(Integer sourceNumber) {
         this.sourceNumber = sourceNumber;
     }
 
-    public int getDestinationNumber() {
+    public Integer getDestinationNumber() {
         return destinationNumber;
     }
 
-    public void setDestinationNumber(int destinationNumber) {
+    public void setDestinationNumber(Integer destinationNumber) {
         this.destinationNumber = destinationNumber;
     }
 
@@ -59,6 +72,5 @@ public class Transaction {
         this.id = id;
     }
 
-    private LocalDate created_at;
 
 }

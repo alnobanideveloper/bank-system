@@ -15,7 +15,7 @@ import java.util.Optional;
 public class BankDAOImp implements BankDAO {
 
     @Override
-    public List<Bank> getAllBanks() {
+    public List<Bank> getAllBanks() throws  SQLException {
         String sql = "SELECT * FROM bank";
         List<Bank> banks = new ArrayList<>();
 
@@ -32,16 +32,12 @@ public class BankDAOImp implements BankDAO {
                 );
                 banks.add(bank);
             }
-
-        } catch (SQLException ex) {
-            System.out.println("Operation failed: " + ex.getMessage());
         }
-
         return banks;
     }
 
     @Override
-    public Optional<Bank> getBankBySwift(String swift) {
+    public Optional<Bank> getBankBySwift(String swift) throws SQLException {
         String sql = "SELECT * FROM bank WHERE swift_code = ?";
         Optional<Bank> bank = Optional.empty();
 
@@ -59,8 +55,6 @@ public class BankDAOImp implements BankDAO {
                 );
             }
 
-        } catch (SQLException ex) {
-            throw new Error("Operation failed: " + ex.getMessage());
         }
         return bank;
     }

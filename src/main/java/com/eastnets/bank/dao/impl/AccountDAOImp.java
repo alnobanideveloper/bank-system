@@ -28,14 +28,12 @@ public class AccountDAOImp implements AccountDAO {
             while(rs.next()){
                 Account account = new Account(
                         rs.getString("account_type"),
-                        rs.getInt("account_number") ,
                         rs.getDouble("balance") ,
                         rs.getString("customer_id"));
+                account.setAccountNo( rs.getInt("account_number"));
 
-                accounts.add(account);
-
+                        accounts.add(account);
             }
-
         }
         return accounts;
     }
@@ -54,13 +52,12 @@ public class AccountDAOImp implements AccountDAO {
             if (rs.next()) {
                 account = Optional.of( new Account(
                         rs.getString("account_type"),
-                        rs.getInt("account_number"),
                         rs.getDouble("balance"),
                         rs.getString("customer_id")));
 
-            } else
-                System.out.println("there are no accounts with this id");
+                account.get().setAccountNo(accountNumber);
 
+            }
         }
         return account;
     }
@@ -98,8 +95,6 @@ public class AccountDAOImp implements AccountDAO {
             stmt.setInt(4, accountNumber);
 
              rows = stmt.executeUpdate();
-
-
         }
         return rows;
     }
@@ -113,7 +108,6 @@ public class AccountDAOImp implements AccountDAO {
 
             stmt.setInt(1, accountNumber);
              rows = stmt.executeUpdate();
-
         }
         return rows;
     }
@@ -127,7 +121,6 @@ public class AccountDAOImp implements AccountDAO {
 
             stmt.setString(1, customerID);
              rows = stmt.executeUpdate();
-
         }
         return rows;
     }

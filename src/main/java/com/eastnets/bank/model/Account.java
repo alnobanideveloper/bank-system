@@ -1,6 +1,7 @@
 package main.java.com.eastnets.bank.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,18 +11,26 @@ public class Account {
     protected String accountType;
     protected int accountNo;
     protected double balance;
-    protected LocalDate openedDate;
+    protected LocalDateTime openedDate;
 
     // No-argument constructor (needed by frameworks)
     public Account() {}
 
     // All-arguments constructor
-    public Account( String accountType, int accountNo, double balance , String nationalID ) {
+    public Account( String accountType, double balance , String nationalID ) {
+
         this.accountType = accountType;
-        this.accountNo = accountNo;
         this.balance = balance;
         this.nationalID = nationalID;
-        this.openedDate  = LocalDate.now();
+        this.openedDate  = LocalDateTime.now();
+    }
+
+    public Account(Account other) {
+        this.nationalID = other.nationalID;
+        this.accountType = other.accountType;
+        this.accountNo = other.accountNo;
+        this.balance = other.balance;
+        this.openedDate = other.openedDate;
     }
 
     // Getters and Setters
@@ -58,8 +67,14 @@ public class Account {
         this.balance = balance;
     }
 
-    public LocalDate getOpenedDate() {
+    public LocalDateTime getOpenedDate() {
         return openedDate;
     }
 
+    public void setOpenedDate(LocalDateTime openedDate) {this.openedDate = openedDate;}
+
+    @Override
+    public String toString() {
+        return "{Account Number : " + this.getAccountNo() + " Balance : "  + this.getBalance() + " }";
+    }
 }

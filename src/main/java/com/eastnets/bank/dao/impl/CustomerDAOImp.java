@@ -14,7 +14,7 @@ public class CustomerDAOImp implements CustomerDAO {
     //return the added customer
     @Override
     public Optional<Customer> createCustomer(Customer customer) throws SQLException{
-        String sql = "INSERT INTO CUSTOMER (nationalId, name, email, address, phone, branch_number) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CUSTOMER (nationalId, name, email, address, phone, branch_number , password) VALUES (?, ?, ?, ?, ?, ? , ?)";
         Optional<Customer> optionaCustomer = Optional.empty();
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -26,6 +26,7 @@ public class CustomerDAOImp implements CustomerDAO {
             pstmt.setString(4, customer.getAddress());
             pstmt.setString(5, customer.getPhoneNumber());
             pstmt.setInt(6, customer.getBranch().getNumber());
+            pstmt.setString(7, customer.getPassword());
             pstmt.executeUpdate();
 
             optionaCustomer = Optional.of(customer);
@@ -61,7 +62,6 @@ public class CustomerDAOImp implements CustomerDAO {
 
     }
 
-    @Override
     public Optional<Customer> getCustomerByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM CUSTOMER WHERE email = ?";
         Optional<Customer> customer = Optional.empty();
@@ -79,9 +79,36 @@ public class CustomerDAOImp implements CustomerDAO {
                         .setPhoneNumber(rs.getString("phone"))
                         .setNationalId(rs.getString("nationalId"))
                         .setAddress(rs.getString("address"))
+                        .setPassword(rs.getString("password"))
                         .build());
             }
+        }
 
+        return customer;
+
+    }
+
+    @Override
+    public Optional<Customer> getCustomerByEmailAndPassword(String email , String password) throws SQLException {
+        String sql = "SELECT * FROM CUSTOMER WHERE email = ? and password = ?";
+        Optional<Customer> customer = Optional.empty();
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                customer = Optional.of(new Customer.Builder()
+                        .setName(rs.getString("name"))
+                        .setEmail(rs.getString("email"))
+                        .setPhoneNumber(rs.getString("phone"))
+                        .setNationalId(rs.getString("nationalId"))
+                        .setAddress(rs.getString("address"))
+                        .build());
+            }
         }
         return customer;
     }
@@ -94,8 +121,7 @@ public class CustomerDAOImp implements CustomerDAO {
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, id);
-             rows = stmt.executeUpdate();
-
+            rows = stmt.executeUpdate();
         }
         return rows;
     }
@@ -115,11 +141,10 @@ public class CustomerDAOImp implements CustomerDAO {
             stmt.setString(6, id);
 
              rows = stmt.executeUpdate();
-
-
         }
         return rows;
     }
+
 
 
     @Override
@@ -141,7 +166,6 @@ public class CustomerDAOImp implements CustomerDAO {
                         .build();
                 customers.add(customer);
             }
-
         }
         return customers;
     }

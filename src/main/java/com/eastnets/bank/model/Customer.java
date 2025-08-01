@@ -11,8 +11,8 @@ public class Customer {
  private String email;
  private String address;
  private Branch branch;
- private String password;
- private LocalDate openedAt;
+ private boolean isLocked;
+ private String password; private LocalDate openedAt;
  private List<Account> accounts;
 
 
@@ -21,6 +21,7 @@ public class Customer {
         this.phoneNumber = builder.phoneNumber;
         this.nationalId = builder.nationalId;
         this.name = builder.name;
+        this.isLocked = builder.isLocked;
         this.email = builder.email;
         this.address = builder.address;
         this.branch = builder.branch;
@@ -89,12 +90,20 @@ public class Customer {
         return accounts;
     }
 
+
     public LocalDate getOpenedAt() {
         return openedAt;
     }
 
     public void setOpenedAt(LocalDate openedAt) {
         this.openedAt = openedAt;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+    public void setIsLocked(boolean isLocked){
+        this.isLocked = isLocked;
     }
 
 
@@ -114,6 +123,7 @@ public class Customer {
         private String email;
         private String address;
         private Branch branch;
+        private  boolean isLocked;
         private String password;
 
         public Builder setPhoneNumber(String phoneNumber) {
@@ -125,6 +135,7 @@ public class Customer {
             this.address = Address;
             return this;
         }
+
 
         public Builder setNationalId(String nationalId) {
             this.nationalId = nationalId;
@@ -157,6 +168,10 @@ public class Customer {
         }
 
 
+        public Builder setLocked(boolean locked) {
+            isLocked = locked;
+            return this;
+        }
     }
 
 

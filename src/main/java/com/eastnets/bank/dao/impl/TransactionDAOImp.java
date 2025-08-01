@@ -28,7 +28,7 @@ public class TransactionDAOImp implements TransactionDAO {
                         result.getDouble("amount"),
                         result.getInt("destination"),
                         result.getInt("source"),
-                        result.getInt("transaction_id")
+                        result.getString("type")
                 );
                 transactions.add(transaction);
             }
@@ -52,27 +52,28 @@ public class TransactionDAOImp implements TransactionDAO {
                         result.getDouble("amount"),
                         result.getInt("destination"),
                         result.getInt("source"),
-                        result.getInt("transaction_id")
+                        result.getString("type")
                 ));
+                transaction.get().setId(result.getInt("transaction_id"));
             }
         } catch (SQLException e) {
             throw new Error("Operation failed: " + e.getMessage());
         }
-
         return transaction;
     }
 
     @Override
     public Optional<Transaction> addTransaction(Transaction transaction) throws SQLException {
-        String sql = "INSERT INTO transaction (source, destination, amount) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO transaction (source, destination, amount , type) VALUES (?, ?, ? , ?)";
         Optional<Transaction> transactionOptional = Optional.empty();
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setInt(1, transaction.getSourceNumber());
-            stmt.setInt(2, transaction.getDestinationNumber());
+            stmt.setObject(1, transaction.getSourceNumber(), java.sql.Types.INTEGER);
+            stmt.setObject(2, transaction.getDestinationNumber(), java.sql.Types.INTEGER);
             stmt.setDouble(3, transaction.getAmount());
+            stmt.setString(4, transaction.getType());
 
             int result = stmt.executeUpdate();
             if (result > 0) {
